@@ -92,17 +92,29 @@ WSGI_APPLICATION = 'bikebackend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis', #''django.db.backends.postgresql_psycopg2',  #'django.db.backends.mysql',
-        'NAME': POSTGRESQL_ADDON_DB,
-        'USER': POSTGRESQL_ADDON_USER,
-        'PASSWORD': POSTGRESQL_ADDON_PASSWORD,
-        'HOST': POSTGRESQL_ADDON_HOST,
-        'PORT': POSTGRESQL_ADDON_PORT,
-        'CONN_MAX_AGE': 5, 
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis', #''django.db.backends.postgresql_psycopg2',  #'django.db.backends.mysql',
+            'NAME': POSTGRESQL_ADDON_DB,
+            'USER': POSTGRESQL_ADDON_USER,
+            'PASSWORD': POSTGRESQL_ADDON_PASSWORD,
+            'HOST': POSTGRESQL_ADDON_HOST,
+            'PORT': POSTGRESQL_ADDON_PORT,
+            'CONN_MAX_AGE': 5, 
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
