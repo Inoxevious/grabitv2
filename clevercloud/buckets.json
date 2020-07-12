@@ -1,6 +1,7 @@
 [
     {
-          "bucket_host": "bucket-e3824de2-e502-481f-a1ae-1111c47636fc-fsbucket.services.clever-cloud.com",
-          "folder": "/static/storage"
-  } 
+       "bucket_host": "bucket-2cee8fa4-72d0-46c4-9d1a-1671ad67b256-fsbucket.services.clever-cloud.com",
+       "folder": "/some/empty/folder"
+    }
  ]
+                    

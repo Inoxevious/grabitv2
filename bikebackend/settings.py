@@ -44,6 +44,11 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'backoffice.apps.BackofficeConfig',
     'jet',
+    'mapwidgets',
+    'rest_framework',
+    'rest_framework_gis',
+    'rest_framework_docs',
+    'oauth2_provider',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +58,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,6 +68,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL=True
 ROOT_URLCONF = 'bikebackend.urls'
 
 TEMPLATES = [
@@ -140,3 +147,34 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'backoffice.customAuthentification.customAuthentification',
 )
+
+#Rest
+REST_FRAMEWORK = {
+      'DEFAULT_AUTHENTICATION_CLASSES': (
+       'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+     #  'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20, 
+}
+
+#oAuth2 expiration
+OAUTH_ACCESS_TOKEN_MODEL = 'oauth2_provider.models.AccessToken'
+OAUTH2_PROVIDER = {
+    'ACCESS_TOKEN_EXPIRE_SECONDS' : 86400,
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+MAP_WIDGETS = {
+    "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocationName", "gweru"),
+        ("GooglePlaceAutocompleteOptions", {'componentRestrictions': {'country': 'zw'}}),
+        ("markerFitZoom", 12),
+    ),
+    "GOOGLE_MAP_API_KEY": "AIzaSyC9ZFOeEouLH8gYosPqixfP86djN8iZCVk"
+}
