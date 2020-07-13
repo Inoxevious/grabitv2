@@ -23,4 +23,4 @@ sqlparse==0.3.1
 starkbank-ecdsa==1.0.0
 stripe==2.48.0
 urllib3==1.25.9
-Celery
+celery
