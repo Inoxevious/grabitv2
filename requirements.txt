@@ -20,7 +20,7 @@ requests==2.24.0
 sendgrid==6.4.3
 six==1.15.0
 sqlparse==0.3.1
-starkbank-ecdsa==1.0.0
+starkbank-ecdsa==2.0.1
 stripe==2.48.0
 urllib3==1.25.9
 celery
